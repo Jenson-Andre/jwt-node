@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class cards extends Model {
+class Card extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -12,17 +12,17 @@ class cards extends Model {
         title: Sequelize.STRING,
         content: Sequelize.STRING,
       },
-      { sequelize, timestamps: false }
+      { sequelize }
     );
 
     return this;
   }
 
   static async nextId() {
-    const nextId = await cards.max('id');
+    const nextId = await Card.max('id');
 
     return nextId + 1;
   }
 }
 
-export default cards;
+export default Card;

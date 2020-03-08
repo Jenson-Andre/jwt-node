@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import cors from 'cors';
 
 import UserController from './app/controllers/UserController';
 import AuthController from './app/controllers/AuthController';
@@ -9,13 +8,6 @@ import authMiddleware from './app/middlewares/auth';
 import checkCard from './app/middlewares/checkCard';
 
 const routes = Router();
-routes.use(cors());
-routes.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
 
 routes.get('/', (req, res) => res.json('API-SCRAPBOOK-STRUTURE'));
 routes.post('/users', UserController.store);

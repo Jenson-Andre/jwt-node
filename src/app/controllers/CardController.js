@@ -16,17 +16,14 @@ class CardController {
     const { title, content } = req.body;
 
     const nextId = await Card.nextId();
-    // console.log(nextId);
-    try {
-      const card = await Card.create({
-        id: nextId,
-        title,
-        content,
-      });
-      res.json(card);
-    } catch (error) {
-      res.json('Erro no cadastro de cards!');
-    }
+
+    const card = await Card.create({
+      id: nextId,
+      title,
+      content,
+    });
+
+    res.json(card);
   }
 
   async update(req, res) {
