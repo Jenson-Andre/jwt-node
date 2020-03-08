@@ -1,10 +1,15 @@
-const {id} = req.params;
-    const {title, content} = req.body;
-    const card = cards.find(p => p.id == id);
+import Card from '../models/Card';
 
-    if(!card){
-        return res.json({error: "Card not found."});
-    }
+// eslint-disable-next-line consistent-return
+export default async (req, res, next) => {
+  const { id } = req.params;
+  const card = await Card.findByPk(id);
 
-    next();
-;
+  if (!card) {
+    return res.json({ error: 'Card not found.' });
+  }
+
+  req.card = card;
+
+  next();
+};

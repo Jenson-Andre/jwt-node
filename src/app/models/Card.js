@@ -1,30 +1,28 @@
 import Sequelize, { Model } from 'sequelize';
 
-
-class Card extends Model {
+class cards extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: Sequelize.STRING,
-        content: sequelize.STRING,
-        ID: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: false,
         },
+        title: Sequelize.STRING,
+        content: Sequelize.STRING,
       },
-      {
-        sequelize,
-      },
+      { sequelize, timestamps: false }
     );
+
     return this;
   }
 
-  static async nextID() {
-    const nextID = await Card.max('ID');
+  static async nextId() {
+    const nextId = await cards.max('id');
 
-    return nextID + 1;
+    return nextId + 1;
   }
 }
 
-export default Card;
+export default cards;

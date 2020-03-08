@@ -1,31 +1,55 @@
-import card from '../models/Card';
-
+import Card from '../models/Card';
 
 class CardController {
   async index(req, res) {
-    return res.json(card);
+    const cards = await Card.findAll();
+
+    return res.json(cards);
   }
 
-  show(req, res) {
+  async show(req, res) {
+    const { card } = req;
     return res.json(card);
   }
 
   async store(req, res) {
-    const { title, content, ID } = req.body;
-    const placing = {
-      title,
-      content,
-      ID,
-    };
+    const { title, content } = req.body;
 
-    card.create(placing);
-
-    return res.json(placing);
+    const nextId = await Card.nextId();
+    // console.log(nextId);
+    try {
+      const card = await Card.create({
+        id: nextId,
+        title,
+        content,
+      });
+      res.json(card);
+    } catch (error) {
+      res.json('Erro no cadastro de cards!');
+    }
   }
 
-  update() {}
+  async update(req, res) {
+    const { card } = req;
+    const { title, content } = req.body;
 
-  delete() {}
+    card.title = title;
+    card.content = content;
+
+    card.save();
+
+    res.json(card);
+  }
+
+  async delete(req, res) {
+    const { card } = req;
+
+    card.destroy();
+
+    const cards = await Card.findAll();
+
+    res.json(cards);
+  }
 }
 
 export default new CardController();
