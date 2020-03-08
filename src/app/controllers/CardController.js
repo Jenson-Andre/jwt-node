@@ -1,27 +1,26 @@
-import card from '../models/Card'
+import card from '../models/Card';
 
 
 class CardController {
   async index(req, res) {
-    return res.json(card)
+    return res.json(card);
   }
 
   show(req, res) {
-    return res.json(card)
+    return res.json(card);
   }
 
   async store(req, res) {
-     const {title , content, ID} = req.body;
-     const placing ={
+    const { title, content, ID } = req.body;
+    const placing = {
       title,
       content,
-      ID
-     };
+      ID,
+    };
 
-     card.create(placing);
+    card.create(placing);
 
-     return res.json(placing);
-
+    return res.json(placing);
   }
 
   update() {}
