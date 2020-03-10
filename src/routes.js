@@ -9,6 +9,14 @@ import checkCard from './app/middlewares/checkCard';
 
 const routes = Router();
 
+routes.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin *');
+  res.header('Access-Control-Allow-Methods GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers Content-Type');
+
+  next();
+});
+
 routes.get('/', (req, res) => res.json('API-SCRAPBOOK-STRUTURE'));
 routes.post('/users', UserController.store);
 routes.post('/login', AuthController.store);
